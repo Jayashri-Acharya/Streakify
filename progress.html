@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Weekly Progress</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/theme.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+
+<div id="badgePopup" class="badge-popup hidden">
+  🎉 Badge Unlocked!
+</div>
+
+<body>
+
+<a href="../index.html" class="back-link">← Back</a>
+<h2>📊 Progress Overview</h2>
+
+<div class="routine-section">
+  <p>Today's Progress: <span id="today"></span></p>
+  <div class="progress-bar">
+    <div id="todayBar" class="progress-fill"></div>
+  </div>
+</div>
+
+<div class="routine-section">
+  <p>This Week Average: <span id="weekly"></span></p>
+  <div class="progress-bar">
+    <div id="weekBar" class="progress-fill"></div>
+  </div>
+</div>
+
+<div class="routine-section">
+  <h3>7-Day Report</h3>
+  <ul id="weekList"></ul>
+</div>
+
+<div class="routine-section">
+  <h3>📈 Weekly Progress Chart</h3>
+  <div id="chart" class="chart"></div>
+</div>
+
+<!-- 🔥 BADGES SECTION (MUST BE ABOVE tracker.js) -->
+<section class="card">
+  <h3>🏆 Badges & Rewards</h3>
+  <div id="badges" class="badge-grid"></div>
+</section>
+
+<!-- JS FILES -->
+<script src="../js/data.js"></script>
+<script src="../js/storage.js"></script>
+<script src="../js/curd.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/tracker.js"></script>
+
+<!-- PAGE SCRIPT -->
+<script>
+const week = getLast7DaysReport();
+const weeklyAvg = getWeeklyAverage();
+
+const todayPercent = week[week.length - 1].percent;
+
+document.getElementById("today").innerText = todayPercent + "%";
+document.getElementById("weekly").innerText = weeklyAvg + "%";
+
+document.getElementById("todayBar").style.width = todayPercent + "%";
+document.getElementById("weekBar").style.width = weeklyAvg + "%";
+
+const list = document.getElementById("weekList");
+week.forEach(d => {
+  const li = document.createElement("li");
+  li.innerText = `${d.date} → ${d.percent}%`;
+  list.appendChild(li);
+});
+const chart = document.getElementById("chart");
+
+week.forEach(d => {
+  const bar = document.createElement("div");
+  bar.className = "chart-bar";
+  bar.style.height = d.percent + "%";
+  bar.innerText = d.percent + "%";
+  chart.appendChild(bar);
+});
+
+</script>
+
+</body>
+</html>
