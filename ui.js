@@ -85,10 +85,19 @@ function renderRoutinePage(category) {
       `;
 
       row.querySelector("input").addEventListener("change", e => {
-        data.completed[today][item] = e.target.checked;
-        saveData(data);
-        renderRoutinePage(category);
-      });
+  const checked = e.target.checked;
+
+  data.completed[today][item] = checked;
+  saveData(data);
+
+  // 🔥 ADD THIS (ONLY when checking, not unchecking)
+  if (checked) {
+    updateStreak();
+  }
+
+  renderRoutinePage(category);
+});
+
 
       sec.appendChild(row);
     });
@@ -143,5 +152,6 @@ function populateCategoryDropdown(category) {
     select.appendChild(option);
   });
 }
+
 
 
