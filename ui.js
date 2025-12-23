@@ -85,18 +85,18 @@ function renderRoutinePage(category) {
       `;
 
       row.querySelector("input").addEventListener("change", e => {
-  const checked = e.target.checked;
+         const checked = e.target.checked;
 
-  data.completed[today][item] = checked;
-  saveData(data);
+         data.completed[today][item] = checked;
+         saveData(data);
 
-  // 🔥 ADD THIS (ONLY when checking, not unchecking)
-  if (checked) {
-    updateStreak();
-  }
+  // ✅ THIS IS THE FIX
+        if (checked) {
+             localStorage.setItem("lastActiveDate", today);
+        }
 
-  renderRoutinePage(category);
-});
+        renderRoutinePage(category);
+    });
 
 
       sec.appendChild(row);
@@ -152,6 +152,7 @@ function populateCategoryDropdown(category) {
     select.appendChild(option);
   });
 }
+
 
 
 
