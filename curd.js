@@ -109,3 +109,4 @@ function renameCategory(category, oldName) {
 
   renderRoutinePage(category);
 }
+
