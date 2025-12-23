@@ -73,18 +73,19 @@ function renderRoutinePage(category) {
 
       // ✅ THIS IS THE IMPORTANT FIX
       row.querySelector("input").addEventListener("change", e => {
-      const checked = e.target.checked;
+  const checked = e.target.checked;
 
-      data.completed[today][item] = checked;
-      saveData(data);
+  data.completed[today][item] = checked;
 
-  // 🔥 MARK TODAY AS ACTIVE DAY
-     if (checked) {
-        localStorage.setItem("lastActiveDate", today);
-    }
+  if (checked) {
+    // 🔥 THIS LINE WAS MISSING (MOST IMPORTANT)
+    localStorage.setItem("lastActiveDate", today);
+  }
 
-    renderRoutinePage(category);
-  });
+  saveData(data);
+  renderRoutinePage(category);
+});
+
 
 
       sec.appendChild(row);
@@ -113,4 +114,5 @@ function populateCategoryDropdown(category) {
     select.appendChild(option);
   });
 }
+
 
