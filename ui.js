@@ -5,50 +5,37 @@ function renderHome() {
   const today = new Date().toDateString();
   const completed = data.completed[today] || {};
 
+  let total = 0, done = 0;
 
+  Object.values(data.routines).forEach(section => {
+    Object.values(section).forEach(items => {
+      total += items.length;
+      items.forEach(i => completed[i] && done++);
+    });
+  });
 
-let total = 0, done = 0;
-Object.values(data.routines).forEach(section => {
-Object.values(section).forEach(items => {
-total += items.length;
-items.forEach(i => completed[i] && done++);
-});
-});
+  const percent = total ? Math.round((done / total) * 100) : 0;
 
-
-const percent = total ? Math.round((done / total) * 100) : 0;
-
-
-document.getElementById('todayProgress').innerText = percent + '%';
-document.getElementById('streak').innerText =
-  localStorage.getItem("streak") || 0;
+  document.getElementById("todayProgress").innerText = percent + "%";
+  document.getElementById("streak").innerText =
+    localStorage.getItem("streak") || 0;
 
   document.getElementById("totalTasks").innerText = total;
   document.getElementById("completedTasks").innerText = done;
   document.getElementById("remainingTasks").innerText = total - done;
-
 }
+
 function renderRoutinePage(category) {
   const data = getData();
-
-  // 🛑 Safety checks (VERY IMPORTANT)
-  if (!data || !data.routines || !data.routines[category]) {
-    console.error("Invalid or missing category:", category);
-    return;
-  }
+  if (!data || !data.routines || !data.routines[category]) return;
 
   const today = new Date().toDateString();
   if (!data.completed[today]) data.completed[today] = {};
 
   const container = document.getElementById("routineContainer");
-  if (!container) {
-    console.error("routineContainer not found");
-    return;
-  }
+  if (!container) return;
 
   container.innerHTML = "";
-
-  // ✅ Populate dropdown AFTER validation
   populateCategoryDropdown(category);
 
   let total = 0, done = 0;
@@ -84,20 +71,20 @@ function renderRoutinePage(category) {
         </div>
       `;
 
+      // ✅ THIS IS THE IMPORTANT FIX
       row.querySelector("input").addEventListener("change", e => {
-         const checked = e.target.checked;
+        const checked = e.target.checked;
 
-         data.completed[today][item] = checked;
-         saveData(data);
+        data.completed[today][item] = checked;
+        saveData(data);
 
-  // ✅ THIS IS THE FIX
+        // 🔥 Mark today as active day
         if (checked) {
-             localStorage.setItem("lastActiveDate", today);
+          localStorage.setItem("lastActiveDate", today);
         }
 
         renderRoutinePage(category);
-    });
-
+      });
 
       sec.appendChild(row);
     });
@@ -112,39 +99,12 @@ function renderRoutinePage(category) {
   saveData(data);
 }
 
-
-
-
-function renderHabits() {
-  const data = getData();
-  const list = document.getElementById("habitList");
-  list.innerHTML = "";
-
-  data.routines[currentCategory].forEach((item, index) => {
-    const li = document.createElement("li");
-
-    li.innerHTML = `
-      <input type="checkbox" ${item.completed ? "checked" : ""} 
-        onchange="toggleHabit(${index})">
-
-      <span>${item.text}</span>
-
-      <button onclick="editHabit(${index})">✏</button>
-      <button onclick="removeHabit(${index})">❌</button>
-    `;
-
-    list.appendChild(li);
-  });
-}
-
 function populateCategoryDropdown(category) {
   const data = getData();
   const select = document.getElementById("sectionSelect");
-
   if (!select) return;
 
   select.innerHTML = "";
-
   Object.keys(data.routines[category]).forEach(section => {
     const option = document.createElement("option");
     option.value = section;
@@ -152,7 +112,3 @@ function populateCategoryDropdown(category) {
     select.appendChild(option);
   });
 }
-
-
-
-
