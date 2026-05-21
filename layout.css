@@ -1,13 +1,9 @@
-/* ===============================
-   🌈 BASE STYLES
-   =============================== */
-
+/* ===== BASE STYLES ===== */
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background: #f5f7fb;
   color: #333;
-
 }
 
 .app-header {
@@ -24,10 +20,7 @@ body {
   opacity: 0.9;
 }
 
-/* ===============================
-   🧩 CATEGORY GRID (DESKTOP + ALL)
-   =============================== */
-
+/* ===== CATEGORY GRID ===== */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -35,24 +28,7 @@ body {
   padding: 1rem;
 }
 
-.card {
-  background: #fff;
-  padding: 16px;
-  border-radius: 16px;
-  text-align: center;
-  font-size: 0.95rem;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
-}
-
-.card:hover {
-  transform: translateY(-3px);
-}
-
-/* ===============================
-   📊 STATUS / DASHBOARD
-   =============================== */
-
+/* ===== STATUS / DASHBOARD ===== */
 .status-box {
   text-align: center;
   margin: 1rem;
@@ -65,28 +41,7 @@ body {
   padding: 1rem;
 }
 
-.dash-card {
-  background: #fff;
-  padding: 18px;
-  border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-}
-
-.dash-card h3 {
-  font-size: 0.9rem;
-  margin-bottom: 6px;
-}
-
-.dash-card p {
-  font-size: 22px;
-  font-weight: bold;
-}
-
-/* ===============================
-   ➕ ADD / ROUTINE SECTIONS
-   =============================== */
-
+/* ===== ADD BOXES ===== */
 .add-box {
   display: flex;
   flex-wrap: wrap;
@@ -101,27 +56,12 @@ body {
   font-size: 0.95rem;
 }
 
-.routine-section {
-  margin-bottom: 20px;
-}
-
-.routine-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 0;
-}
-
-/* ===============================
-   📱 MOBILE OPTIMIZATION
-   =============================== */
-
+/* ===== MOBILE OPTIMIZATION ===== */
 @media (max-width: 480px) {
-
   body {
     padding: 12px;
     line-height: 1.5;
-    min-height: 100svh;   /* ✅ FIX FOR MOBILE */
+    min-height: 100svh;
   }
 
   .app-header {
@@ -135,7 +75,6 @@ body {
     margin-bottom: 10px;
   }
 
-  /* 📌 HOME PAGE ONLY → VERTICAL CATEGORIES */
   .home-categories {
     display: flex;
     flex-direction: column;
@@ -153,8 +92,8 @@ body {
     text-align: left;
   }
 
-  /* Dashboard */
   .dashboard {
+    display: grid;
     grid-template-columns: 1fr;
     gap: 12px;
     margin-top: 16px;
@@ -178,7 +117,12 @@ body {
     margin-top: 6px;
   }
 
-  /* Inputs full width */
+  .add-box {
+    background: #eef4ff;
+    padding: 12px;
+    border-radius: 12px;
+  }
+
   .add-box input,
   .add-box select,
   .add-box button {
@@ -186,34 +130,17 @@ body {
     font-size: 0.9rem;
   }
 
+  .routine-section {
+    background: white;
+    padding: 12px;
+    border-radius: 12px;
+    margin-top: 12px;
+  }
+
   .routine-item {
     padding: 10px;
     margin: 6px 0;
     border-radius: 10px;
     background: #fff;
-  }
-
-  .add-box {
-  background: #eef4ff;
-  padding: 12px;
-  border-radius: 12px;
-}
-
-.routine-section {
-  background: white;
-  padding: 12px;
-  border-radius: 12px;
-  margin-top: 12px;
-}
-
-}
-
-/* FINAL MOBILE FIX FOR HOME DASHBOARD */
-@media (max-width: 480px) {
-  .dashboard {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-    margin-top: 16px;
   }
 }
