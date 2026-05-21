@@ -6,6 +6,7 @@
   text-align: center;
   text-decoration: none;
   color: var(--text);
+  font-size: 0.95rem;
   font-weight: bold;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   transition: 0.3s;
@@ -31,6 +32,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+.routine-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+  background: #f9fafb;
 }
 
 .routine-item label {
@@ -63,7 +73,6 @@ button:active {
   transform: scale(0.97);
 }
 
-/* Small action buttons (edit/delete) */
 .routine-item button {
   background: #f3f4f6;
   color: #111;
@@ -85,14 +94,16 @@ button:active {
 }
 
 /* ---------- Inputs ---------- */
-input[type="text"], select {
+input[type="text"],
+select {
   padding: 6px 10px;
   border-radius: 8px;
   border: 1px solid var(--border);
   font-size: 14px;
 }
 
-input[type="text"]:focus, select:focus {
+input[type="text"]:focus,
+select:focus {
   outline: none;
   border-color: var(--primary);
 }
@@ -113,89 +124,6 @@ input[type="text"]:focus, select:focus {
 }
 
 /* ---------- Badges ---------- */
-.badge-grid {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.badge {
-  padding: 15px;
-  border-radius: 12px;
-  background: #f4f4f4;
-  font-weight: bold;
-}
-
-.badge.locked {
-  opacity: 0.4;
-}
-
-.badge.unlocked {
-  background: linear-gradient(135deg, #ffd700, #ff9800);
-  color: #000;
-}
-
-/* ---------- Badge Unlock Animation ---------- */
-@keyframes badgePop {
-  0% {
-    transform: scale(0.6);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.badge.unlocked {
-  animation: badgePop 0.5s ease;
-  box-shadow: 0 10px 25px rgba(255, 165, 0, 0.4);
-}
-
-.badge.new-unlock {
-  animation: badgePop 0.6s ease;
-  outline: 2px solid #ffd700;
-}
-
-/* ---------- Back Link ---------- */
-.back-link {
-  display: inline-block;
-  margin-bottom: 14px;
-  text-decoration: none;
-  font-weight: 600;
-  color: var(--primary);
-  padding: 6px 12px;
-  border-radius: 8px;
-  transition: 0.2s;
-}
-
-.back-link:hover {
-  background: var(--primary);
-  color: white;
-}
-
-.back-link {
-  background: #f3f4f6;
-  border: 1px solid var(--border);
-}
-
-
-/* ---------- Routine Item Hover Animation ---------- */
-.routine-item {
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-  padding: 8px 10px;
-  border-radius: 10px;
-}
-
-.routine-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-  background: #f9fafb;
-}
-
 .badge-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -219,21 +147,31 @@ input[type="text"]:focus, select:focus {
 .badge.unlocked {
   background: linear-gradient(135deg, #ffd700, #ff9800);
   color: #000;
+  animation: badgePop 0.5s ease;
+  box-shadow: 0 10px 25px rgba(255, 165, 0, 0.4);
 }
 
 .badge.unlocked:hover {
   transform: scale(1.05);
 }
 
-/* 🎉 Unlock Animation */
-.new-unlock {
-  animation: pop 0.6s ease-out;
+.badge.new-unlock {
+  animation: badgePop 0.6s ease;
+  outline: 2px solid #ffd700;
 }
 
-@keyframes pop {
-  0% { transform: scale(0.5); opacity: 0; }
-  80% { transform: scale(1.1); }
-  100% { transform: scale(1); opacity: 1; }
+@keyframes badgePop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .badge-popup {
@@ -265,6 +203,26 @@ input[type="text"]:focus, select:focus {
   }
 }
 
+/* ---------- Back Link ---------- */
+.back-link {
+  display: inline-block;
+  margin-bottom: 14px;
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--primary);
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: 0.2s;
+  background: #f3f4f6;
+  border: 1px solid var(--border);
+}
+
+.back-link:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* ---------- Chart ---------- */
 .chart {
   display: flex;
   align-items: flex-end;
@@ -282,7 +240,7 @@ input[type="text"]:focus, select:focus {
   font-size: 10px;
 }
 
-
+/* ---------- Dashboard ---------- */
 .dash-card {
   background: var(--card);
   padding: 18px;
@@ -303,11 +261,18 @@ input[type="text"]:focus, select:focus {
   color: var(--primary);
 }
 
-/* ===== TOAST MESSAGE SYSTEM ===== */
-
+/* ---------- Toasts ---------- */
 #toast-container {
   position: fixed;
   bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+}
+
+#toast-container-top {
+  position: fixed;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -325,31 +290,25 @@ input[type="text"]:focus, select:focus {
   animation: slideUp 0.4s ease, fadeOut 0.4s ease 2.6s forwards;
 }
 
-/* Toast Types */
-.toast.success  { background: #2ecc71; }
-.toast.error    { background: #e74c3c; }
-.toast.warning  { background: #f39c12; }
-.toast.info     { background: #6c63ff; }
+.toast.success { background: #2ecc71; }
+.toast.error { background: #e74c3c; }
+.toast.warning { background: #f39c12; }
+.toast.info { background: #6c63ff; }
 
-/* Animations */
 @keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to   { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes fadeOut {
-  to { opacity: 0; transform: translateY(20px); }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
 }
-
-/* ===============================
-   🔔 TOP TOAST (Important Alerts)
-   =============================== */
-
-#toast-container-top {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-}
-
