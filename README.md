@@ -86,4 +86,4 @@ The main goal of Streakifyy is to help users stay consistent with their daily ro
 
 ## Author
 
-Created by Sinchana.
+Created by Jayashri.
